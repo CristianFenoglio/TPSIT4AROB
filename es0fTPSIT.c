@@ -37,6 +37,8 @@ void codif(char parola[], int lung){
     int t=0;//serve a scorrere il stringa parola
     int k;//serve ad aggiornare t
     int count=0;//tiene il conto delle lettere uguali di fila
+    int cont;
+    bool z=false;
     char temp[lung];//stringa d'appoggio
     int scorrTemp=0;
     while(parola[t]!= '\0'){//finchè non finisce la stringa
@@ -44,12 +46,20 @@ void codif(char parola[], int lung){
         while(parola[t]==parola[t+k]){//finchè la lettera non cambia 
             count++;
             k++;
+            z=true;
         }
         if(count!=1){//se è uno c'era solo 1 lettera(a) se diverso devo scrivere anche il numero (2a) e quindi aggiornare la stringa d'appoggio in modo differente
             temp[scorrTemp]=count+48;
             scorrTemp++;
             temp[scorrTemp]=parola[t];
             scorrTemp++;
+            if(z){
+                cont =cont +2;
+            }else{
+                 cont =cont +1;
+            }
+            
+            z=false;
 
         }else{
             temp[scorrTemp]=parola[t];
@@ -58,7 +68,9 @@ void codif(char parola[], int lung){
         count=0;//resett del count a 0
       t=t+k;  
     }
-    strcpy(parola, temp);//copia la stringa
+    for(int h=0;h<cont; h++){//evita di salvare valori indesiderati
+        parola[h]=temp[h];
+    }
 
 }
 
@@ -99,6 +111,9 @@ void decodif(char parola[], int lung){
 
 void main(){
     char parola[LUNGMAX];
+    for (int clr=0; clr<LUNGMAX; clr++){
+        parola[clr]=' ';
+    }
     int risp=decOUndec();  
     inserireParola(parola);
 
