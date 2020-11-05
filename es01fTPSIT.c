@@ -30,10 +30,11 @@ bool eCont(int n, int vett[], int d){//controlla se un valore c'è dentro ad un 
 }
 
 
-void randomEsecuzione(Canzone elenco[], int d){//d è la dimensione
-    int vett[d];//contiene i numeri delle canzoni da ancora suonare
+void randomEsecuzione(Canzone* p, int d){//d è la dimensione
+    int* vett;//contiene i numeri delle canzoni da ancora suonare
+    vett=(int*)malloc(d*sizeof(int));
     for(int k=0; k<d; k++){
-        vett[k]=k;//assegna alla cella 0 0 alla 1 1 ecc...
+        *(vett+k)=k;//assegna alla cella 0 0 alla 1 1 ecc...
     }
 
     int suona;//il numero della canone da suonare
@@ -43,44 +44,66 @@ void randomEsecuzione(Canzone elenco[], int d){//d è la dimensione
         do{
             suona=rand()%(d+1);//formula per ottennere un numero random tra 0 e d
         }while(!eCont(suona, vett, d));
-        vett[suona]=-1;//così non c'è la possibilità di ripetere una canzone
-        printf("%s %s\n", elenco[suona].nome, elenco[suona].autor);//printa  
+        *(vett+suona)=-1;//così non c'è la possibilità di ripetere una canzone
+        printf("%s %s\n", (p+suona)->nome, (p+suona)->autor);//printa  
+
 
             
     }
        
 }
 
-#define LUNG 100
-
-void legg(Canzone elenco[], int* c){
+void legg(Canzone* p, int c){
     FILE *fp;
+   
     char line[LUNG];
+    int cont=0;
     char nomeFile[]="music.csv";
     if((fp=fopen(nomeFile, "r"))==NULL){
             printf("______________________iL FiLe NoN EsIsTe_______________________");
     }else{
         while(fgets(line, LUNG, fp)!=NULL){
             //trovo i vari pezzi
-            elenco[*c].num=atoi(strtok(line, ",\n"));
-            strcpy(elenco[*c].nome, strtok(NULL,",\n"));
-            strcpy(elenco[*c].autor, strtok(NULL,",\n"));
-            *c=*c+1;
+            (p+cont)->num=atoi(strtok(line, ",\n"));
+            strcpy((p+cont)->nome, strtok(NULL,",\n"));
+            strcpy((p+cont)->autor, strtok(NULL,",\n"));
+            cont=cont+1;
 
-        }  
+        } 
+         
         fclose(fp);
     }    
         
 }
-    
 
+
+int trovaRighe(char nomeFile[]){
+    FILE *fp;
+    int c=0;
+    char* l;
+    l=(char*)malloc(sizeof(char)*100);
+    if((fp=fopen(nomeFile, "r"))==NULL){
+            printf("______________________iL FiLe NoN EsIsTe_______________________");
+    }else{
+        while(fgets(l, LUNG, fp)!=NULL){
+            c=c+1;
+        }  
+        fclose(fp);
+    }
+    return c;
+
+}  
+
+	
 
 
     
 int main(){
-    Canzone elenco[DIM];
-    int c=0;
-    legg(elenco, &c);
-    randomEsecuzione(elenco, c);
+    char nomeFile[]="music.csv";
+    int c=trovaRighe(nomeFile);
+    Canzone* p;
+    p=(Canzone*)malloc(c*sizeof(Canzone));
+    legg(p, c);
+    randomEsecuzione(p, c);
     
 }
