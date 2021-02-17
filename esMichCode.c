@@ -58,10 +58,8 @@ El *pop(El **head, El **tail){
             }
         }while(!isEmpty(*head));
 
-        while(!isEmpty(testa)){
-            rinfila = dequeue(&testa, &fondo);
-            push(head, tail, rinfila);
-        }
+        *head=testa;
+        *tail=fondo;
         return ret;
     }
     *tail=NULL;
