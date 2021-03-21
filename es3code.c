@@ -50,8 +50,7 @@ struct node* dequeue(struct node** head,
 }
 
 
-void push(struct node** head,
-          struct node** tail, struct node* element){
+void push(struct node** head,  struct node** tail, struct node* element){
     struct node* support_head = NULL;
     struct node* support_tail = NULL;
     struct node* element3;
