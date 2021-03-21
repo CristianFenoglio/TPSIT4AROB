@@ -21,6 +21,7 @@ typedef struct canzone{
 void push(Canzone* p, int i, char*titolo, char* autore){
     
     if(p == NULL){
+        
         p->num = i;
         p->nome = strdup(titolo);
         p->autor = strdup(autore);
@@ -125,16 +126,15 @@ void leggi(Canzone* p){
             stringaA1=strdup(strtok(NULL,",\n"));
             
             stringaA2=strdup(strtok(NULL,",\n"));
-            
             push(p, num, stringaA1, stringaA2);
+            
 
         } 
-         printf("ciao");
+         
         fclose(fp);
     }
     free(stringaA1);
-    free(stringaA2);
-    free(line);    
+    free(stringaA2);   
         
 }
 
@@ -159,10 +159,13 @@ int trovaRighe(char nomeFile[]){
 
 int main(){
     
-    Canzone* p = (Canzone*)malloc(sizeof(Canzone));
-    
+    Canzone* p;
+    p= (Canzone*)malloc(sizeof(Canzone));
     leggi(p);
     
+    for(Canzone* k = p; k != NULL; k = k->next)
+        printf("\n%d %s", k->num, k->nome);
+    printf("\n-------------------------------");
     int c=trovaRighe("music.csv");
     
     randomEsecuzione(p, c);
