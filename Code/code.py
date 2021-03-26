@@ -1,4 +1,4 @@
-def dequeue(queue):
+def dequeue(queue):#programma inutile di test
     return queue.pop(0)
 
 def enqueue(queue, element):
