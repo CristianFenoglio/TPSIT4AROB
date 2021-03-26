@@ -1,5 +1,5 @@
 #define MAX_NUM_CONTATTI 1024
-
+//utilizzare una lista come una rubrica
 struct contatto{
     int id;
     char nome [64];
@@ -11,7 +11,7 @@ struct rubrica{
     strcut contatto db [MAX_NUM_CONTATTI];
 };
 
-int inserisci(struct rubrica *r, char *nome, char *numero{
+int inserisci(struct rubrica *r, char *nome, char *numero{//inserimento
     strcut contatto *p;
     if(r->num_inseriti == MAX_NUM_CONTATTI){
         printf("Rubrica piena");
@@ -26,7 +26,7 @@ int inserisci(struct rubrica *r, char *nome, char *numero{
     return 0;
 }
 
-char *trova_numero_da_nome(strcut rubrica *r, char *nome){
+char *trova_numero_da_nome(strcut rubrica *r, char *nome){//funzione di ricerca su una lista
     int i;
     strcut contatto *p;
     for(i=0;i<MAX_NUM_CONTATTI; i++){
@@ -40,7 +40,7 @@ char *trova_numero_da_nome(strcut rubrica *r, char *nome){
     return NULL;
 }
 
-void stampa_rubirca(strcut rubrica *r){
+void stampa_rubirca(strcut rubrica *r){//stampa tutta la rubrica
     int i;
     strcut contatto *p;
 
