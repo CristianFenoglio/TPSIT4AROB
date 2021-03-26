@@ -51,15 +51,15 @@ El *pop(El **head, El **tail){
     El *fondo=NULL;
     if(!isEmpty(*head)){
         do{ 
-            ret = dequeue(head, tail);
+            ret = dequeue(head, tail);//dequeue fino alla fine della coda
             if(!isEmpty(*head)){
-                push(&testa, &fondo, ret);
+                push(&testa, &fondo, ret);//push nella nuova pila
             }
         }while(!isEmpty(*head));
-        *head=testa;
+        *head=testa;//rigiro la pila
         *tail=fondo;
         return ret;
-    }
+    }//se è null returno null
     *tail=NULL;
     return NULL;
     
