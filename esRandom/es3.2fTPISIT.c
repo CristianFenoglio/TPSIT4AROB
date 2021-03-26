@@ -38,7 +38,7 @@ Nodo *pop(Nodo **head){
     return ret;
 }
 
-int main(){
+int main(){//controllo se una stringa ha le parentesi in modo corretto
     char stringa[100];
     Nodo *head = NULL;
     Nodo *pila = NULL;
@@ -46,16 +46,16 @@ int main(){
     bool ok = true;
 
     printf("inserisci una stringa con parentesi graffe tonde e quandre al suo interno: ");
-    scanf("%s", stringa);
+    scanf("%s", stringa);//leggo
 
     for(int k = 0; stringa[k] != '\0' && ok == true; k++){
         pila = (Nodo*) malloc(sizeof(Nodo));
         pila->valore = stringa[k];
 
-        if(stringa[k] == '(' || stringa[k] == '[' || stringa[k] == '{'){
+        if(stringa[k] == '(' || stringa[k] == '[' || stringa[k] == '{'){//push se è una par aperta
             push(&head, pila);
             
-        }else if(stringa[k] == ')'){
+        }else if(stringa[k] == ')'){//pop e controlli se è una chiusa
             appoggio = pop(&head);
             if(appoggio != NULL){
                 if(appoggio->valore != '(')
@@ -87,7 +87,7 @@ int main(){
         }
     }
 
-    if(ok == true)
+    if(ok == true)//visualizzazione risultato
         printf("Ordine parentesi corretto");
     else
         printf("Ordine parentesi errato");
